@@ -1,0 +1,23 @@
+{
+  "name": "agencia-viajes",
+  "version": "1.0.0",
+  "description": "Proyecto con Express y Bootstrap",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renatosoca/AgenciaViajes.git"
+  },
+  "type": "module",
+  "author": "RenatoSoca",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
