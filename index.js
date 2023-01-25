@@ -6,7 +6,7 @@ const app = express();
 
 //Conectar la Base de Datos
 database.authenticate()
-    .then( () => console.log('DB conectada'))
+    .then( () => console.log('DB conectada') )
     .catch( error => console.log(error))
 
 const port = process.env.PORT || 4000;
@@ -19,13 +19,19 @@ app.set( 'view engine', 'pug' );
 app.use( (req, res, next) => {
     //Creando variable para mostrar en las Vistas
     const year = new Date();
-    res.locals.Fecha = year.getFullYear();
+    res.locals.fecha = year.getFullYear();
     res.locals.title = 'Agencia de Viajes';
     next();
 });
 
+//Agregar Body Parser para leer datos de los formularios
+app.use(express.urlencoded({ extended: true }));
+
 //Definir la Carpeta PUBLICA
-app.use(express.static('public'));
+//Para 1 Nivel
+app.use( express.static('public'));
+//Para 2 Niveles
+app.use('/viaje', express.static('public'));
 
 //Agregar el ROUTER
 app.use( '/', router );
