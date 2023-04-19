@@ -1,4 +1,4 @@
-import { Viaje } from '../models/Viaje.js'
+/* import { Viaje } from '../models/Viaje.js'
 import { Testimonial } from '../models/Testimonial.js'
 
 const paginaInicio = async (req, res) => {
@@ -70,4 +70,4 @@ export {
     paginaViajes,
     paginaDetalleViaje,
     paginaTestimoniales
-};
+}; */

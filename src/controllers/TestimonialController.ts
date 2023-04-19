@@ -1,4 +1,4 @@
-import { Testimonial } from '../models/Testimonial.js'
+/* import { Testimonial } from '../models/Testimonial.js'
 
 export const guardarTestimonial = async (req, res) => {
     const {nombre, email, mensaje} = req.body;
@@ -31,4 +31,4 @@ export const guardarTestimonial = async (req, res) => {
     } catch (error) {
         console.error(error);
     }
-}
+} */
