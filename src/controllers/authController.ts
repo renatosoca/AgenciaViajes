@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import { registerUser, searchByEmail, searchByToken } from '../services';
+import { registerUser, userByEmail, userByToken } from '../services';
 import { comparePassword } from '../utils/bcrypt.handel';
 
 export const userAuth = async ({ body }: Request, res: Response) => {
   const { email, password } = body;
 
   try {
-    const user = await searchByEmail( email );
+    const user = await userByEmail( email );
     if (!user) return res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
 
     const isValidPassword = comparePassword( password, user.password );
@@ -26,7 +26,7 @@ export const userCreate = async ({ body }: Request, res: Response) => {
   const { email } = body;
 
   try {
-    const userExist = await searchByEmail(email);
+    const userExist = await userByEmail(email);
     if (userExist) return res.status(400).json({ ok: false, msg: 'El usuario ya existe' });
 
     const user = await registerUser(body);
@@ -44,7 +44,7 @@ export const userConfirm = async ({ params }: Request, res: Response) => {
   const { token } = params;
 
   try {
-    const user = await searchByToken(token);
+    const user = await userByToken(token);
     if (!user) return res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
 
     user.token = '';
@@ -57,6 +57,85 @@ export const userConfirm = async ({ params }: Request, res: Response) => {
       ok: true,
       msg: 'Usuario confirmado'
     });
+  } catch (error) {
+    return res.status(500).json({ ok: false, msg: 'Error del sistema, contacte al administrador'});
+  }
+}
+
+export const forgotPassword = async ({}: Request, res: Response) => {
+  try {
+    
+    return res.status(200).json({
+      ok: true,
+    })
+  } catch (error) {
+    return res.status(500).json({ ok: false, msg: 'Error del sistema, contacte al administrador'});
+  }
+}
+
+export const validateResetPassword = async ({}: Request, res: Response) => {
+  try {
+    
+    return res.status(200).json({
+      ok: true,
+    })
+  } catch (error) {
+    return res.status(500).json({ ok: false, msg: 'Error del sistema, contacte al administrador'});
+  }
+}
+
+export const resetPassword = async ({}: Request, res: Response) => {
+  try {
+    
+    return res.status(200).json({
+      ok: true,
+    })
+  } catch (error) {
+    return res.status(500).json({ ok: false, msg: 'Error del sistema, contacte al administrador'});
+  }
+}
+
+//Methods Privates
+
+export const revalidateAuth = async ({}: Request, res: Response) => {
+  try {
+    
+    return res.status(200).json({
+      ok: true,
+    })
+  } catch (error) {
+    return res.status(500).json({ ok: false, msg: 'Error del sistema, contacte al administrador'});
+  }
+}
+
+export const getUserAuthenticaded = async ({}: Request, res: Response) => {
+  try {
+    
+    return res.status(200).json({
+      ok: true,
+    })
+  } catch (error) {
+    return res.status(500).json({ ok: false, msg: 'Error del sistema, contacte al administrador'});
+  }
+}
+
+export const updateUserAuthenticaded = async ({}: Request, res: Response) => {
+  try {
+    
+    return res.status(200).json({
+      ok: true,
+    })
+  } catch (error) {
+    return res.status(500).json({ ok: false, msg: 'Error del sistema, contacte al administrador'});
+  }
+}
+
+export const updateUserPassword = async ({}: Request, res: Response) => {
+  try {
+    
+    return res.status(200).json({
+      ok: true,
+    })
   } catch (error) {
     return res.status(500).json({ ok: false, msg: 'Error del sistema, contacte al administrador'});
   }

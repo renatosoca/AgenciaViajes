@@ -8,12 +8,12 @@ export const registerUser = async ( payload: User) => {
   return userCreated;
 }
 
-export const searchByEmail = async ( email: string ) => {
+export const userByEmail = async ( email: string ) => {
   const userExist = await userModel.findOne({ where: { email }});
   return userExist;
 }
 
-export const searchByToken = async ( token: string ) => {
+export const userByToken = async ( token: string ) => {
   const userExist = await userModel.findOne({ where: { token }});
   return userExist;
 }

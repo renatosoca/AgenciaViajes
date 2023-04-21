@@ -1,11 +1,14 @@
 {
-  "name": "agencia-viajes",
+  "name": "inmuebles-pro",
   "version": "1.0.0",
-  "description": "Proyecto con Express y Bootstrap",
+  "description": "Bienes Raices",
   "main": "main.js",
   "scripts": {
     "dev": "nodemon src/main.ts",
-    "start": "tsc && node dist/main.js"
+    "start": "tsc && node dist/main.js",
+    "db:importDevData": "ts-node src/seed/seeder.ts -importDev",
+    "db:deleteDevData": "ts-node src/seed/seeder.ts -deleteDev",
+    "db:createTables": "ts-node src/seed/seeder.ts -createTable"
   },
   "repository": {
     "type": "git",
