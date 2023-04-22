@@ -1,24 +1,30 @@
 import { Request, Response } from 'express';
-import { categoryModel, estateModel, userModel } from '../models';
+import { categoryModel, commentModel, estateModel, userModel } from '../models';
 
 export const getEstates = async ({ query }: Request, res: Response) => {
   const { page, limit } = query;
   try {
     const offset = (Number(page) - 1) * Number(limit);
     
-    const estates = await estateModel.findAll({
-      limit: Number(limit),
-      offset,
-      //where AND
-      include: [
-        { model: categoryModel, as: 'category' },
-        { model: userModel, as: 'user' },
-      ],
-    });
+    const [estates, estateCount] = await Promise.all([
+      estateModel.findAll({
+        limit: !!limit ? Number(limit) : undefined,
+        offset: !!offset ? offset : undefined,
+        //where AND user AND state
+        include: [
+          { model: categoryModel, as: 'category' },
+          { model: userModel, as: 'user' },
+          { model: commentModel, as: 'comments' },
+        ],
+      }),
+      estateModel.count(),
+    ])
 
     return res.status(200).json({
       ok: true,
       estates,
+      estateCount,
+      offset,
     });
   } catch (error) {
     console.log(error)
@@ -93,6 +99,29 @@ export const deleteEstate = async ({ params }: Request, res: Response) => {
     return res.status(200).json({
       ok: true,
       estate,
+    });
+  } catch (error) {
+    return res.status(500).json({ ok: false, msg: 'Error del sistema, contacte al administrador'});
+  }
+}
+
+export const getEstateComments = async ({ params }: Request, res: Response) => {
+  const { id } = params;
+
+  try {
+    const comments = await commentModel.findAll({
+      where: {
+        estateId: id,
+      },
+      include: [
+        { model: estateModel, as: 'estate' },
+      ]
+    });
+    if (!comments) return res.status(404).json({ ok: false, msg: 'No existe la propiedad'});
+
+    return res.status(200).json({
+      ok: true,
+      comments,
     });
   } catch (error) {
     return res.status(500).json({ ok: false, msg: 'Error del sistema, contacte al administrador'});

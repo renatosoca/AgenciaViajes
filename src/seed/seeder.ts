@@ -1,5 +1,5 @@
-import { DB } from '../database'
-import { categoryModel, estateModel, userModel } from '../models';
+import DB from '../database/config';
+import { categoryModel, commentModel, estateModel, userModel } from '../models';
 import { categorySeed, estateSeed, userSeed } from './dataSeed';
 
 export const importDevData = async () => {
@@ -10,6 +10,7 @@ export const importDevData = async () => {
     await userModel.sync();
     await categoryModel.sync();
     await estateModel.sync();
+    await commentModel.sync();
 
     //Import Data
     await Promise.allSettled([
@@ -28,6 +29,7 @@ export const importDevData = async () => {
 export const deleteDevData = async () => {
   try {
     //Delete Tables
+    await commentModel.drop();
     await estateModel.drop();
     await categoryModel.drop();
     await userModel.drop();

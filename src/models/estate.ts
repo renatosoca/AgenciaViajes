@@ -1,12 +1,13 @@
 import { DataTypes, Model } from 'sequelize';
-import { DB } from '../database';
+import DB from '../database/config';
 import { Estate } from '../interfaces';
-import userModel from './user';
 import categoryModel from './category';
+import commentModel from './comment';
+import userModel from './user';
 
 interface IEstateModel extends Model<Estate>, Estate {};
 
-const estateModel= DB.define<IEstateModel>('Estate', {
+const estateModel = DB.define<IEstateModel>('Estate', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
   name: { type: DataTypes.STRING(100), allowNull: false },
   description: { type: DataTypes.STRING, defaultValue: '', allowNull: true },
@@ -41,5 +42,7 @@ const estateModel= DB.define<IEstateModel>('Estate', {
 
 estateModel.belongsTo(userModel, { foreignKey: 'userId', as: 'user' });
 estateModel.belongsTo(categoryModel, { foreignKey: 'categoryId', as: 'category' });
+
+estateModel.hasMany( commentModel, { foreignKey: 'estateId', as: 'estate' });
 
 export default estateModel;

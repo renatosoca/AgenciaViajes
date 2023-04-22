@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import { DB } from '../database';
+import DB from '../database/config';
 import { User } from '../interfaces';
 import { generateToken } from '../utils';
 

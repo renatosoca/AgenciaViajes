@@ -14,7 +14,7 @@ const dbUser: string = process.env.DB_USER || 'root';
 const dbPass: string = process.env.DB_PASS || '';
 const dbHost: string = process.env.DB_HOST || 'localhost';
 
-export const DB = new Sequelize(dbName, dbUser, dbPass, {
+const DB = new Sequelize(dbName, dbUser, dbPass, {
   host: dbHost,
   port: 3306,
   dialect: 'mysql',
@@ -28,3 +28,5 @@ export const DB = new Sequelize(dbName, dbUser, dbPass, {
     idle: 10000
   }
 });
+
+export default DB;
