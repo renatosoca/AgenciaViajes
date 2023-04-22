@@ -10,6 +10,14 @@ const categoryModel= DB.define<ICategoryModel>('Category', {
   description: { type: DataTypes.STRING, defaultValue: '', allowNull: true },
 },{
   timestamps: true,
+  scopes: {
+    customResponse: {
+      attributes: { exclude: ['description', 'createdAt', 'updatedAt'] }
+    },
+    withoutTimestamps: {
+      attributes: { exclude: ['createdAt', 'updatedAt'] }
+    }
+  }
 });
 
 export default categoryModel;

@@ -3,4 +3,6 @@ export interface Comment {
   message: string;
   userId?: number;
   estateId?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

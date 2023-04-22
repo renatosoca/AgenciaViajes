@@ -1,22 +1,20 @@
 import DB from '../database/config';
 import { categoryModel, commentModel, estateModel, userModel } from '../models';
-import { categorySeed, estateSeed, userSeed } from './dataSeed';
+import { categorySeed, commentSeed, estateSeed, userSeed } from './dataSeed';
 
 export const importDevData = async () => {
   try {
     await DB.authenticate();
 
     //Create Tables
-    await userModel.sync();
-    await categoryModel.sync();
-    await estateModel.sync();
-    await commentModel.sync();
+    await DB.sync();
 
     //Import Data
     await Promise.allSettled([
       userModel.bulkCreate(userSeed),
       categoryModel.bulkCreate(categorySeed),
       estateModel.bulkCreate(estateSeed),
+      commentModel.bulkCreate(commentSeed)
     ]);
 
     process.exit();
@@ -29,10 +27,7 @@ export const importDevData = async () => {
 export const deleteDevData = async () => {
   try {
     //Delete Tables
-    await commentModel.drop();
-    await estateModel.drop();
-    await categoryModel.drop();
-    await userModel.drop();
+    await DB.sync({ force: true });
     
     process.exit();
   } catch (error) {

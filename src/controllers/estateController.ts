@@ -14,8 +14,12 @@ export const getEstates = async ({ query }: Request, res: Response) => {
         include: [
           { model: categoryModel, as: 'category' },
           { model: userModel, as: 'user' },
-          { model: commentModel, as: 'comments' },
-        ],
+          { model: commentModel, as: 'comments',
+            include: [
+              { model: userModel, as: 'user' }
+            ]
+          }
+        ]
       }),
       estateModel.count(),
     ])
@@ -40,6 +44,7 @@ export const getEstate = async ({ params }: Request, res: Response) => {
       include: [
         { model: categoryModel, as: 'category' },
         { model: userModel, as: 'user' },
+        { model: commentModel, as: 'comments'}
       ],
     });
     if (!estate) return res.status(404).json({ ok: false, msg: 'No existe la propiedad'}); 
@@ -115,6 +120,7 @@ export const getEstateComments = async ({ params }: Request, res: Response) => {
       },
       include: [
         { model: estateModel, as: 'estate' },
+        { model: userModel, as: 'user' },
       ]
     });
     if (!comments) return res.status(404).json({ ok: false, msg: 'No existe la propiedad'});

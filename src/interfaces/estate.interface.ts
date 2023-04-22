@@ -13,4 +13,6 @@ export interface Estate {
   published: boolean;
   userId?: number;
   categoryId?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

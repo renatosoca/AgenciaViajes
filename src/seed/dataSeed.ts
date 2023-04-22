@@ -1,4 +1,4 @@
-import { Category, Estate, User } from '../interfaces';
+import { Category, Comment, Estate, User } from '../interfaces';
 import { hashPassword } from '../utils';
 
 export const userSeed: User[] = [
@@ -66,5 +66,28 @@ export const estateSeed: Estate[] = [
     published: true,
     userId: 1,
     categoryId: 2,
+  }
+]
+
+export const commentSeed: Comment[] = [
+  {
+    message: 'lorem ipsum dolor sit amet prueba 1',
+    userId: 1,
+    estateId: 1,
+  },
+  {
+    message: 'lorem ipsum dolor sit amet prueba 2',
+    userId: 1,
+    estateId: 1,
+  },
+  {
+    message: 'lorem ipsum dolor sit amet prueba 3',
+    userId: 1,
+    estateId: 1,
+  },
+  {
+    message: 'lorem ipsum dolor sit amet prueba 4',
+    userId: 1,
+    estateId: 2,
   }
 ]

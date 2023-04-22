@@ -17,7 +17,10 @@ const userModel= DB.define<IUserModel>('User', {
   timestamps: true,
   scopes: {
     customResponse: {
-      attributes: { exclude: ['password', 'token', 'confirmed'] }
+      attributes: { exclude: ['password', 'token', 'confirmed', 'createdAt', 'updatedAt'] }
+    },
+    withoutTimestamps: {
+      attributes: { exclude: ['createdAt', 'updatedAt'] }
     }
   }
 });

@@ -6,4 +6,6 @@ export interface User extends Auth {
   lastname: string;
   token?: string;
   confirmed?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
