@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { forgotPassword, getUserAuthenticaded, resetPassword, revalidateAuth, updateUserAuthenticaded, updateUserPassword, userAuth, userConfirm, userCreate, validateResetPassword } from '../controllers';
+import { forgotPassword, getUserAuthenticated, resetPassword, revalidateAuth, updateUserAuthenticated, updateUserPassword, userAuth, userConfirm, userCreate, validateResetPassword } from '../controllers';
+import { checkSession } from '../middlewares';
 
 const router = Router();
 
@@ -11,17 +12,18 @@ router.post('/forgot-password', forgotPassword);
 
 router.route('/reset-password/:token')
   .get(validateResetPassword)
-  .post(resetPassword)
+  .post(resetPassword);
 
 //Private Routes
+router.use(checkSession);
 
-router.get('/revalidate-auth', revalidateAuth)
+router.get('/revalidate-auth', revalidateAuth);
 
 router.route('/user-profile/:id')
-  .get(getUserAuthenticaded)
-  .put(updateUserAuthenticaded)
+  .get(getUserAuthenticated)
+  .put(updateUserAuthenticated);
 
-router.post('user-password/:id', updateUserPassword)
+router.post('user-password/:id', updateUserPassword);
 
 
 export default router;

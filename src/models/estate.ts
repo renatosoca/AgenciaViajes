@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import DB from '../database/config';
+import { DB } from '../database';
 import { Estate } from '../interfaces';
 
 interface IEstateModel extends Model<Estate>, Estate {};

@@ -7,16 +7,16 @@ export const getEstates = async ({ query }: Request, res: Response) => {
     const offset = (Number(page) - 1) * Number(limit);
     
     const [estates, estateCount] = await Promise.all([
-      estateModel.findAll({
+      estateModel.scope('customResponse').findAll({
         limit: !!limit ? Number(limit) : undefined,
         offset: !!offset ? offset : undefined,
         //where AND user AND state
         include: [
-          { model: categoryModel, as: 'category' },
-          { model: userModel, as: 'user' },
-          { model: commentModel, as: 'comments',
+          { model: categoryModel.scope('customResponse'), as: 'category' },
+          { model: userModel.scope('customResponse'), as: 'user' },
+          { model: commentModel.scope('customResponse'), as: 'comments',
             include: [
-              { model: userModel, as: 'user' }
+              { model: userModel.scope('customResponse'), as: 'user' }
             ]
           }
         ]
@@ -119,7 +119,6 @@ export const getEstateComments = async ({ params }: Request, res: Response) => {
         estateId: id,
       },
       include: [
-        { model: estateModel, as: 'estate' },
         { model: userModel, as: 'user' },
       ]
     });
