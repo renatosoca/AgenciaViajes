@@ -1,2 +1,3 @@
-# AgenciaViajes
-## Proyecto Realizado con Node y Express
+# To run the database container on Docker
+
+## docker-compose up -d

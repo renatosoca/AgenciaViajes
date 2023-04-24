@@ -1,4 +1,4 @@
-export interface Estate {
+export interface IEstate {
   id?: number;
   name: string;
   description?: string;

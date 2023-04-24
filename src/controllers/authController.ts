@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { AuthRequestExtends } from '../interfaces';
 import { registerUser, userByEmail, userByToken } from '../services';
+import { sendEmailRegister } from '../utils';
 import { comparePassword } from '../utils/bcrypt.handel';
 
 export const userAuth = async ({ body }: Request, res: Response) => {
@@ -12,7 +13,7 @@ export const userAuth = async ({ body }: Request, res: Response) => {
 
     const isValidPassword = comparePassword(password, user.password);
     if (!isValidPassword) return res.status(403).json({ ok: false, msg: 'Contraseña incorrecta' });
-    if (!user.confirmed) return res.status(403).json({ ok: false, msg: 'El usuario no ha sido confirmado' });
+    if (!user.hasVerifiedEmail) return res.status(403).json({ ok: false, msg: 'El usuario no ha sido confirmado' });
 
     return res.status(200).json({
       ok: true,
@@ -24,13 +25,14 @@ export const userAuth = async ({ body }: Request, res: Response) => {
 }
 
 export const userCreate = async ({ body }: Request, res: Response) => {
-  const { email } = body;
+  const { email, name, lastname } = body;
 
   try {
     const userExist = await userByEmail(email);
-    if (userExist) return res.status(400).json({ ok: false, msg: 'El usuario ya existe' });
+    if (userExist) return res.status(403).json({ ok: false, msg: 'El correo electronico ya está en uso' });
 
     const user = await registerUser(body);
+    await sendEmailRegister(name, lastname, email, user.token);
 
     return res.status(200).json({
       ok: true,
@@ -48,8 +50,8 @@ export const userConfirm = async ({ params }: Request, res: Response) => {
     const user = await userByToken(token);
     if (!user) return res.status(404).json({ ok: false, msg: 'Usuario no encontrado' });
 
-    user.hasVerifiedEmail = '';
-    user.confirmed = true;
+    user.hasVerifiedEmail = true;
+    user.token = '';
     await user.save();
 
     //Send mail

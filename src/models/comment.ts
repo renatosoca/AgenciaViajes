@@ -1,13 +1,13 @@
 import { DataTypes, Model } from 'sequelize';
 import { DB } from '../database';
-import { Comment } from '../interfaces';
+import { IComment } from '../interfaces';
 
-interface ICommentModel extends Model<Comment>, Comment {}
+interface ICommentModel extends Model<IComment>, IComment { }
 
-const commentModel= DB.define<ICommentModel>('Comment', {
+const Comment = DB.define<ICommentModel>('Comment', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
-  message: { type: DataTypes.STRING, allowNull: false}
-},{
+  comment: { type: DataTypes.STRING, allowNull: false },
+}, {
   timestamps: true,
   scopes: {
     customResponse: {
@@ -19,4 +19,4 @@ const commentModel= DB.define<ICommentModel>('Comment', {
   }
 });
 
-export default commentModel;
+export default Comment;

@@ -1,14 +1,14 @@
 import { DataTypes, Model } from 'sequelize';
 import { DB } from '../database';
-import { Category } from '../interfaces';
+import { ICategory } from '../interfaces';
 
-interface ICategoryModel extends Model<Category>, Category {}
+interface ICategoryModel extends Model<ICategory>, ICategory { }
 
-const categoryModel= DB.define<ICategoryModel>('Category', {
+const Category = DB.define<ICategoryModel>('Category', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
-  name: { type: DataTypes.STRING, allowNull: false},
+  name: { type: DataTypes.STRING, allowNull: false },
   description: { type: DataTypes.STRING, defaultValue: '', allowNull: true },
-},{
+}, {
   timestamps: true,
   scopes: {
     customResponse: {
@@ -20,4 +20,4 @@ const categoryModel= DB.define<ICategoryModel>('Category', {
   }
 });
 
-export default categoryModel;
+export default Category;

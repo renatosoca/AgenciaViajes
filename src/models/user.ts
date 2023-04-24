@@ -1,23 +1,30 @@
 import { DataTypes, Model } from 'sequelize';
 import { DB } from '../database';
-import { User } from '../interfaces';
+import { IUser } from '../interfaces';
 import { generateToken } from '../utils';
 
-interface IUserModel extends Model<User>, User {}
+interface IUserModel extends Model<IUser>, IUser { }
 
-const userModel= DB.define<IUserModel>('User', {
+const User = DB.define<IUserModel>('User', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false },
-  name: { type: DataTypes.STRING, allowNull: false },
-  lastname: { type: DataTypes.STRING, allowNull: false},
+  name: { type: DataTypes.STRING(100), allowNull: false },
+  lastname: { type: DataTypes.STRING(100), allowNull: false },
+  image: { type: DataTypes.STRING, defaultValue: '', allowNull: true },
   email: { type: DataTypes.STRING, unique: true, allowNull: false },
-  password: { type: DataTypes.STRING, allowNull: false },
-  hasVerifiedEmail: { type: DataTypes.STRING, allowNull: false },
-  confirmed: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
-},{
+  password: { type: DataTypes.STRING(64), allowNull: false },
+  hasVerifiedEmail: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
+  status: {
+    type: DataTypes.ENUM,
+    values: ['active', 'inactive', 'deleted'],
+    defaultValue: 'active',
+    allowNull: false
+  },
+  token: { type: DataTypes.STRING, defaultValue: '', allowNull: false },
+}, {
   timestamps: true,
   hooks: {
-    beforeCreate: async function(user: User) {
-      user.hasVerifiedEmail = generateToken();
+    beforeCreate: function (user: IUser) {
+      user.token = generateToken();
     }
   },
   scopes: {
@@ -30,4 +37,4 @@ const userModel= DB.define<IUserModel>('User', {
   }
 });
 
-export default userModel;
+export default User;

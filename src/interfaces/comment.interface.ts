@@ -1,6 +1,6 @@
-export interface Comment {
+export interface IComment {
   id?: number;
-  message: string;
+  comment: string;
   userId?: number;
   estateId?: number;
   createdAt?: Date;

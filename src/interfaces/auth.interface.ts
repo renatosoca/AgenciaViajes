@@ -1,11 +1,11 @@
 import { Request } from 'express';
-import { User } from './user.interface';
+import { IUser } from './user.interface';
 
-export interface Auth {
+export interface IAuth {
   email: string;
   password: string;
 }
 
 export interface AuthRequestExtends extends Request {
-  user?: User;
+  user?: IUser;
 }

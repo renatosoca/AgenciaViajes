@@ -1,11 +1,15 @@
-import { Auth } from './';
+import { IAuth } from './';
 
-export interface User extends Auth {
+export interface IUser extends IAuth {
   id?: number;
   name: string;
   lastname: string;
-  hasVerifiedEmail?: string;
-  confirmed?: boolean;
+  image: string;
+  hasVerifiedEmail: boolean;
+  status: TStatus;
+  token: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export type TStatus = 'active' | 'inactive' | 'deleted';
