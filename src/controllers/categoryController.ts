@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { Category } from '../models';
+import { categoryAll, categoryById, categoryUpdated, categoryCreated, categoryDeleted } from '../services';
 
 //Methods Privates
 
 export const getCategories = async (_: Request, res: Response) => {
   try {
-    const categories = await Category.findAll({});
+    const categories = await categoryAll();
 
     return res.status(200).json({
       ok: true,
@@ -20,7 +20,7 @@ export const getCategory = async ({ params }: Request, res: Response) => {
   const { id } = params;
 
   try {
-    const category = await Category.findByPk(id);
+    const category = await categoryById(id);
     if (!category) return res.status(404).json({ ok: false, msg: 'No existe la categoria' });
 
     return res.status(200).json({
@@ -34,7 +34,7 @@ export const getCategory = async ({ params }: Request, res: Response) => {
 
 export const createCategory = async ({ body }: Request, res: Response) => {
   try {
-    const category = await Category.create(body);
+    const category = await categoryCreated(body);
 
     return res.status(200).json({
       ok: true,
@@ -49,10 +49,10 @@ export const updateCategory = async ({ body, params }: Request, res: Response) =
   const { id } = params;
 
   try {
-    const category = await Category.findByPk(id);
+    const category = await categoryById(id);
     if (!category) return res.status(404).json({ ok: false, msg: 'No existe la categoria' });
 
-    await category.update(body);
+    await categoryUpdated(id, body);
 
     return res.status(200).json({
       ok: true,
@@ -67,10 +67,10 @@ export const deleteCategory = async ({ params }: Request, res: Response) => {
   const { id } = params;
 
   try {
-    const category = await Category.findByPk(id);
+    const category = await categoryById(id);
     if (!category) return res.status(404).json({ ok: false, msg: 'No existe la categoria' });
 
-    await category.destroy();
+    await categoryDeleted(id);
 
     return res.status(200).json({
       ok: true,

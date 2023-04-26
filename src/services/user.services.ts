@@ -9,6 +9,11 @@ export const registerUser = async (payload: IUser) => {
   return userCreated;
 }
 
+export const userUpdated = async (id: number, payload: IUser) => {
+  const userUpdated = await User.update(payload, { where: { id } });
+  return userUpdated;
+}
+
 export const userById = async (id: number) => {
   const userExist = await User.findOne({ where: { id } });
   return userExist;
