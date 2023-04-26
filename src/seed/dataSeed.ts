@@ -1,18 +1,20 @@
-import { Category, Comment, Estate, User } from '../interfaces';
+import { ICategory, IComment, IEstate, IUser } from '../interfaces';
 import { hashPassword } from '../utils';
 
-export const userSeed: User[] = [
+export const userSeed: IUser[] = [
   {
     name: 'Renato',
     lastname: 'Soca',
     email: 'renato@renato.com',
     password: hashPassword('renato'),
     token: '',
-    confirmed: true,
+    hasVerifiedEmail: true,
+    status: 'active',
+    image: '',
   }
 ]
 
-export const categorySeed: Category[] = [
+export const categorySeed: ICategory[] = [
   {
     name: 'Residencial',
   },
@@ -36,7 +38,7 @@ export const categorySeed: Category[] = [
   }
 ]
 
-export const estateSeed: Estate[] = [
+export const estateSeed: IEstate[] = [
   {
     name: 'House',
     description: 'lorem ipsum dolor sit amet prueba ',
@@ -69,24 +71,24 @@ export const estateSeed: Estate[] = [
   }
 ]
 
-export const commentSeed: Comment[] = [
+export const commentSeed: IComment[] = [
   {
-    message: 'lorem ipsum dolor sit amet prueba 1',
+    comment: 'lorem ipsum dolor sit amet prueba 1',
     userId: 1,
     estateId: 1,
   },
   {
-    message: 'lorem ipsum dolor sit amet prueba 2',
+    comment: 'lorem ipsum dolor sit amet prueba 2',
     userId: 1,
     estateId: 1,
   },
   {
-    message: 'lorem ipsum dolor sit amet prueba 3',
+    comment: 'lorem ipsum dolor sit amet prueba 3',
     userId: 1,
     estateId: 1,
   },
   {
-    message: 'lorem ipsum dolor sit amet prueba 4',
+    comment: 'lorem ipsum dolor sit amet prueba 4',
     userId: 1,
     estateId: 2,
   }

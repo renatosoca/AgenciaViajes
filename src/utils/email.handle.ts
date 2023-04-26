@@ -30,7 +30,7 @@ export const sendEmailRegister = async (name: string, lastName: string, email: s
       from: `${dataEmail.adminName} 👻 <${dataEmail.adminEmail}>`,
       to: email,
       subject: 'Confirmar correo',
-      html: template({ name, lastName, email, token }),
+      html: template({ ...dataEmail }),
     })
 
     console.log(sendEmail.messageId)

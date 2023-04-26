@@ -3,7 +3,7 @@ import { Sequelize } from 'sequelize';
 export const connectionDB = async () => {
   try {
     await DB.authenticate();
-    //await DB.sync();
+    await DB.sync({ force: false });
     console.log('Connection has been established successfully.');
   } catch (error) {
     console.error('Unable to connect to the database:', error);

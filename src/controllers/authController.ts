@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 import { AuthRequestExtends } from '../interfaces';
 import { registerUser, userByEmail, userByToken } from '../services';
-import { sendEmailRegister } from '../utils';
-import { comparePassword } from '../utils/bcrypt.handel';
+import { sendEmailRegister, comparePassword } from '../utils';
 
 export const userAuth = async ({ body }: Request, res: Response) => {
   const { email, password } = body;

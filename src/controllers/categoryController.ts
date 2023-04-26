@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { categoryModel } from '../models';
+import { Category } from '../models';
 
 //Methods Privates
 
 export const getCategories = async (_: Request, res: Response) => {
   try {
-    const categories = await categoryModel.findAll({});
+    const categories = await Category.findAll({});
 
     return res.status(200).json({
       ok: true,
@@ -20,7 +20,7 @@ export const getCategory = async ({ params }: Request, res: Response) => {
   const { id } = params;
 
   try {
-    const category = await categoryModel.findByPk(id);
+    const category = await Category.findByPk(id);
     if (!category) return res.status(404).json({ ok: false, msg: 'No existe la categoria' });
 
     return res.status(200).json({
@@ -34,7 +34,7 @@ export const getCategory = async ({ params }: Request, res: Response) => {
 
 export const createCategory = async ({ body }: Request, res: Response) => {
   try {
-    const category = await categoryModel.create(body);
+    const category = await Category.create(body);
 
     return res.status(200).json({
       ok: true,
@@ -49,7 +49,7 @@ export const updateCategory = async ({ body, params }: Request, res: Response) =
   const { id } = params;
 
   try {
-    const category = await categoryModel.findByPk(id);
+    const category = await Category.findByPk(id);
     if (!category) return res.status(404).json({ ok: false, msg: 'No existe la categoria' });
 
     await category.update(body);
@@ -67,7 +67,7 @@ export const deleteCategory = async ({ params }: Request, res: Response) => {
   const { id } = params;
 
   try {
-    const category = await categoryModel.findByPk(id);
+    const category = await Category.findByPk(id);
     if (!category) return res.status(404).json({ ok: false, msg: 'No existe la categoria' });
 
     await category.destroy();

@@ -37,4 +37,4 @@ const User = DB.define<IUserModel>('User', {
   }
 });
 
-export default User;
+export { User }

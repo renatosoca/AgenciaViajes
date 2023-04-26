@@ -1,5 +1,5 @@
 import { DB } from '../database';
-import { categoryModel, commentModel, estateModel, userModel } from '../models';
+import { Category, Comment, Estate, User } from '../models';
 import { categorySeed, commentSeed, estateSeed, userSeed } from './dataSeed';
 
 export const importDevData = async () => {
@@ -11,10 +11,10 @@ export const importDevData = async () => {
 
     //Import Data
     await Promise.allSettled([
-      userModel.bulkCreate(userSeed),
-      categoryModel.bulkCreate(categorySeed),
-      estateModel.bulkCreate(estateSeed),
-      commentModel.bulkCreate(commentSeed)
+      User.bulkCreate(userSeed),
+      Category.bulkCreate(categorySeed),
+      Estate.bulkCreate(estateSeed),
+      Comment.bulkCreate(commentSeed)
     ]);
 
     process.exit();
@@ -28,10 +28,11 @@ export const deleteDevData = async () => {
   try {
     //Delete Tables
     await DB.sync({ force: true });
-    
+
     process.exit();
   } catch (error) {
     console.log(error)
+    console.log('ERRORRRRRRRRR')
     process.exit(1);
   }
 }

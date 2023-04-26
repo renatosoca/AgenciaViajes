@@ -20,4 +20,4 @@ const Category = DB.define<ICategoryModel>('Category', {
   }
 });
 
-export default Category;
+export { Category };
