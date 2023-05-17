@@ -5,6 +5,7 @@ import { generateToken, hashPassword } from '../utils';
 export const registerUser = async (payload: IUser) => {
   payload.password = hashPassword(payload.password);
   payload.token = generateToken();
+
   const userCreated = await User.create(payload);
   return userCreated;
 }

@@ -43,7 +43,6 @@ const Estate = DB.define<IEstateModel>('Estate', {
       attributes: { exclude: ['createdAt', 'updatedAt'] }
     }
   },
-  modelName: 'Estate'
   /* paranoid: true, */
 });
 

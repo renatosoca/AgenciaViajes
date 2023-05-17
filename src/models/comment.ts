@@ -19,8 +19,8 @@ const Comment = DB.define<ICommentModel>('Comment', {
       attributes: { exclude: ['createdAt', 'updatedAt'] }
     }
   },
-  modelName: 'Comment'
 });
+
 Comment.belongsTo(User, { foreignKey: 'userId', targetKey: 'id', as: 'user' });
 User.hasMany(Comment, { foreignKey: 'userId', sourceKey: 'id', as: 'comments' });
 
